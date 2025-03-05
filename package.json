@@ -11,6 +11,8 @@
   "dependencies": {
     "@auth/mongodb-adapter": "^3.8.0",
     "@auth/pg-adapter": "^1.8.0",
+    "@auth/prisma-adapter": "^2.8.0",
+    "@prisma/client": "^6.4.1",
     "mongodb": "^6.14.0",
     "next": "15.2.0",
     "next-auth": "^5.0.0-beta.25",
@@ -27,6 +29,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.2.0",
+    "prisma": "^6.4.1",
     "tailwindcss": "^4.0.9",
     "typescript": "^5"
   }

@@ -1,11 +1,11 @@
 import { LuMail } from "react-icons/lu";
-import { signIn } from "@/utils/auth";
+import { signIn } from "@/lib/auth";
 
 export default function Login() {
 	return (
 		<div className="flex flex-col items-center justify-center h-screen w-screen">
 			<h2>Welcome Back</h2>
-			<div className="flex flex-col items-center justify-center gap-3 pt-4 w-102">
+			<form className="flex flex-col items-center justify-center gap-3 pt-4 w-102">
 				<button
 					type="button"
 					className="w-full py-4 bg-white rounded-lg text-black text-xl hover:cursor-pointer"
@@ -18,6 +18,7 @@ export default function Login() {
 					className="w-full py-4 bg-discord rounded-lg text-white text-xl hover:cursor-pointer"
 					formAction={async () => {
 						"use server";
+						console.log("signing in with discord");
 						await signIn("discord");
 					}}
 				>
@@ -28,6 +29,7 @@ export default function Login() {
 					className="border-2 border-white rounded-lg w-full h-14 mt-5 px-3 focus:outline-none"
 					type="text"
 					placeholder="example@xyz.com"
+					required
 					name="email"
 				/>
 				<button
@@ -35,14 +37,14 @@ export default function Login() {
 					className="w-full py-4 bg-destructive rounded-lg text-white text-xl hover:cursor-pointer inline-flex gap-4 justify-center items-center"
 					formAction={async (formData) => {
 						"use server";
-						// change from mailgun to whatever later
+						// change from resend to whatever later
 						await signIn("resend", formData);
 					}}
 				>
 					<LuMail className="size-6" />
 					Magic Link
 				</button>
-			</div>
+			</form>
 		</div>
 	);
 }
