@@ -10,7 +10,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     providers: [
         Discord,
         Resend({
-            from: 'test@updates.mariostuff.me'
+            from: process.env.AUTH_EMAIL_FROM,
         })
     ],
     pages: {
