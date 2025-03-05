@@ -7,5 +7,14 @@ import Resend from "next-auth/providers/resend";
 export const { auth, handlers, signIn, signOut } = NextAuth({
     adapter: PrismaAdapter(prisma),
     session: { strategy: "jwt" },
-    providers: [Discord, Resend],
+    providers: [
+        Discord,
+        Resend({
+            from: 'test@updates.mariostuff.me'
+        })
+    ],
+    pages: {
+        signIn: "/login",
+        error: "/login",
+    }
 })
