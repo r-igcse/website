@@ -15,6 +15,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  admin         Boolean   @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -57,4 +58,37 @@ model VerificationToken {
   expires    DateTime
 
   @@id([identifier, token])
+}
+
+model ExamBoard {
+  id       String    @id @default(cuid())
+  name     String
+  subjects Subject[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Subject {
+  id          String     @id @default(cuid())
+  name        String
+  code        String
+  iconUrl     String
+  examBoardId String
+  examBoard   ExamBoard  @relation(fields: [examBoardId], references: [id])
+  resources   Resource[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Resource {
+  id        String  @id @default(cuid())
+  name      String
+  url       String
+  subjectId String
+  subject   Subject @relation(fields: [subjectId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
