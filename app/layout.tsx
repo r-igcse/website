@@ -3,6 +3,7 @@ import { DM_Sans } from "next/font/google";
 import './globals.css';
 import {auth, signOut} from "@/lib/auth";
 import Link from "next/link";
+import React from "react";
 
 const dmSans = DM_Sans({
 	variable: "--font-dm-sans",
@@ -56,7 +57,9 @@ export default async function RootLayout({
 					}
 
 				</nav>
-				{children}
+				<div className="pt-16 min-h-full w-full">
+					{children}
+				</div>
 			</body>
 		</html>
 	);
