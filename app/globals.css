@@ -1,29 +1,35 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-dm-sans);
-  --color-background: #171717;
-  --color-foreground: #f1f1f1;
-  --color-border: #d6d6d6;
-  --color-primary: #C2D6F1;
+    /* Color */
+    --color-background: #171717;
+    --color-foreground: #f1f1f1;
+    --color-border: #d6d6d6;
+    --color-primary: #C2D6F1;
     --color-primary-foreground: #171717;
     --color-secondary: #FEFB88;
     --color-secondary-foreground: #171717;
     --color-accent: #F1C5D6;
     --color-accent-foreground: #171717;
-  --color-destructive: #EA352A;
+    --color-destructive: #EA352A;
     --color-destructive-foreground: #f1f1f1;
-  --color-discord: #7289DA;
-  --color-reddit: #FF4500;
+    --color-discord: #5a62f1;
+    --color-reddit: #FF4500;
 
+    /* Font */
+    --font-sans: var(--font-dm-sans);
+
+    /* Radius */
+    --radius-default: 7px;
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-    @apply font-sans antialiased;
-  }
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+        @apply font-sans antialiased;
+    }
 }
