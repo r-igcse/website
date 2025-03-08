@@ -1,5 +1,6 @@
 import { LuMail } from "react-icons/lu";
 import { signIn } from "@/lib/auth";
+import Button from "@/components/ui/Button";
 
 export default function Login() {
 	return (
@@ -7,24 +8,24 @@ export default function Login() {
 			<h2>Welcome Back</h2>
 			<div className="space-y-8 pt-4 w-102">
 				<form className="flex flex-col gap-3 w-full">
-					<button
-						type="button"
-						className="w-full py-4 bg-white rounded-lg text-black text-xl hover:cursor-pointer"
+					<Button type="submit"
+							className="bg-white text-primary-foreground"
+							size="lg"
 					>
 						Log in with Google
-					</button>
+					</Button>
 
-					<button
-						type="submit"
-						className="w-full py-4 bg-discord rounded-lg text-white text-xl hover:cursor-pointer"
-						formAction={async () => {
-							"use server";
-							console.log("signing in with discord");
-							await signIn("discord", {redirectTo: "/"});
-						}}
+					<Button type="submit"
+							className="bg-discord text-white"
+							size="lg"
+							formAction={async () => {
+								"use server";
+								console.log("signing in with discord");
+								await signIn("discord", {redirectTo: "/"});
+							}}
 					>
 						Log in with Discord
-					</button>
+					</Button>
 				</form>
 
 				<form className="flex flex-col gap-3 w-full" action={async (formData) => {
@@ -39,13 +40,10 @@ export default function Login() {
 						required
 						name="email"
 					/>
-					<button
-						type="submit"
-						className="w-full py-4 bg-destructive rounded-lg text-white text-xl hover:cursor-pointer inline-flex gap-4 justify-center items-center"
-					>
+					<Button type="submit" size="lg" className="gap-2">
 						<LuMail className="size-6"/>
 						Magic Link
-					</button>
+					</Button>
 				</form>
 			</div>
 		</div>
