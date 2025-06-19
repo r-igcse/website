@@ -3,9 +3,7 @@
     <h1>r/IGCSE</h1>
 </div>
 
----
-
-The r/IGCSE Website is currently under development.
+The r/IGCSE Website is currently under development, being made with Remix.
 
 # Contributors
 
