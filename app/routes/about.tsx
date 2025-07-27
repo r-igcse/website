@@ -36,7 +36,7 @@ const styles = `
 
     .hero-text p {
         font-size: 1.1rem;
-        color: #A0A0A0; /* Lighter grey for subtitle */
+        color: #A0A0A0;
         max-width: 650px;
         margin: 0 auto;
     }
@@ -50,13 +50,13 @@ const styles = `
 
     .grid-container {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* More robust responsive grid */
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 2rem;
         margin-top: -4rem;
     }
 
     .card {
-        background: #121212; /* Slightly different from main background */
+        background: #121212;
         padding: 2rem;
         border-radius: 12px;
         border: 1px solid #2A2A2A;
@@ -65,11 +65,11 @@ const styles = `
 
     .card:hover {
         transform: translateY(-5px);
-        border-color: #007BFF; /* Accent color on hover */
+        border-color: #007BFF;
     }
     
     .card-icon {
-        color: #007BFF; /* Accent color */
+        color: #007BFF;
         margin-bottom: 1.5rem;
     }
 
@@ -81,7 +81,7 @@ const styles = `
     }
 
     .card p {
-        color: #888888; /* Softer grey for body text */
+        color: #888888;
         line-height: 1.6;
     }
 
@@ -117,7 +117,7 @@ const styles = `
     }
 
     .contribution-card {
-      background: #090909; /* Darker than section bg */
+      background: #090909;
       padding: 2rem;
       border-radius: 10px;
       border: 1px solid #333;
@@ -166,7 +166,7 @@ const styles = `
     }
 
     .cta-button.primary:hover {
-        background-color: #0056b3; /* Darker blue on hover */
+        background-color: #0056b3;
     }
 
     .cta-button.secondary:hover {
@@ -203,8 +203,6 @@ const styles = `
         font-size: 1rem;
     }
     
-
-    /* --- Responsive Adjustments --- */
     @media (max-width: 768px) {
         .hero-text h1 {
             font-size: 2.5rem;
@@ -220,7 +218,7 @@ const styles = `
     @media (min-width: 768px) {
         .contribution-wrapper {
             flex-direction: row;
-            align-items: stretch; /* Makes cards equal height */
+            align-items: stretch;
         }
     }
 
@@ -240,7 +238,6 @@ export const meta: MetaFunction = () => {
 function About() {
     const [showModmailModal, setShowModmailModal] = useState(false);
 
-    // Modal animation variants
     const overlayVariants = {
       hidden: { opacity: 0 },
       visible: { opacity: 1, transition: { duration: 0.3 } },
@@ -255,7 +252,7 @@ function About() {
     return (
         <div style={{
             fontFamily: "DMSans, sans-serif",
-            background: "#090909", // Main background
+            background: "#090909",
             minHeight: "100vh",
             color: "#EFEFEF"
         }}>
@@ -317,7 +314,6 @@ function About() {
                         <div className="contribution-card">
                            <h4>Create New Resources</h4>
                            <p>Join a team to draft and produce new content like notes or guide booklets from scratch.</p>
-                           {/* Replace with your actual form link */}
                            <a
                              href="https://forms.r-igcse.study/f/resource-contribution"
                              className="cta-button primary"
@@ -345,7 +341,6 @@ function About() {
                     </div>
                 </section>
 
-                {/* Modal for Modmail options */}
                 <AnimatePresence>
                   {showModmailModal && (
                     <motion.div
