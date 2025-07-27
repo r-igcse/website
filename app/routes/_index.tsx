@@ -56,10 +56,10 @@ export default function Index() {
               Resource Repository
             </h3>
             <p className="mb-6 font-dmsans text-base text-[#d7dadc]">
-              We are a global, student-run community dedicated to helping
-              learners succeed in their IGCSE exams. All resources here are
-              created and shared by fellow students to make exam preparation
-              easier and more accessible for everyone in the r/IGCSE community.
+              We are a global, student-run community dedicated to supporting 
+              learners through their IGCSE and A-Level journeys. All resources 
+              here are created and shared by fellow students to make exam preparation 
+              easier, more collaborative, and accessible for everyone in the r/IGCSE community.
             </p>
             <div className="mb-8 flex w-full flex-row justify-start gap-8">
               <div className="flex flex-col">
@@ -122,10 +122,10 @@ export default function Index() {
             variants={itemVariants}
             className="mt-4 mb-6 max-w-xs text-center font-dmsans text-base text-[#d7dadc] md:max-w-md md:text-left md:text-lg"
           >
-            We are a global, student-run community dedicated to helping
-            learners succeed in their IGCSE exams. All resources here are
-            created and shared by fellow students to make exam preparation
-            easier and more accessible for everyone in the r/IGCSE community.
+            We are a global, student-run community dedicated to supporting learners 
+            through their IGCSE and A-Level journeys. All resources here are created 
+            and shared by fellow students to make exam preparation easier, more 
+            collaborative, and accessible for everyone in the r/IGCSE community.
           </motion.p>
           <motion.div
             variants={itemVariants}

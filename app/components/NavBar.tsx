@@ -4,6 +4,8 @@ import {
   RiNotification4Line,
   RiMenuLine,
   RiCloseLine,
+  RiDiscordFill,
+  RiRedditFill,
 } from "@remixicon/react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import React, { useState, useEffect } from "react";
@@ -28,6 +30,8 @@ const AnimatedLink = ({
   isExternal,
   showUnderline = true,
   isActive = false,
+  className,
+  iconType,
 }: {
   to: string;
   children: React.ReactNode;
@@ -37,6 +41,8 @@ const AnimatedLink = ({
   isExternal?: boolean;
   showUnderline?: boolean;
   isActive?: boolean;
+  className?: string;
+  iconType?: "discord" | "reddit" | "external";
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [lastDirection, setLastDirection] = useState<"left" | "right">("left");
@@ -66,11 +72,34 @@ const AnimatedLink = ({
     setLastDirection("right");
   };
 
+  const renderIcon = () => {
+    const iconProps = {
+      className: "w-4 h-4",
+      style: {
+        marginLeft: "8px",
+        display: "inline-block",
+        verticalAlign: "middle",
+      },
+    };
+
+    if (iconType === "discord") {
+      return <RiDiscordFill {...iconProps} />;
+    }
+    if (iconType === "reddit") {
+      return <RiRedditFill {...iconProps} />;
+    }
+    if (isExternal) {
+      return <RiExternalLinkLine {...iconProps} className="w-3 h-3" />;
+    }
+    return null;
+  };
+
   return (
     <motion.div
       onHoverStart={handleHoverStart}
       onHoverEnd={handleHoverEnd}
       style={{ position: "relative", display: "inline-block" }}
+      className={className}
     >
       <Link
         to={to}
@@ -78,21 +107,14 @@ const AnimatedLink = ({
           ...style,
           color: isHovered && hoverColor ? hoverColor : style.color,
           fontWeight: isActive ? 800 : style.fontWeight,
+          display: "flex",
+          alignItems: "center",
         }}
         target={isExternal ? "_blank" : "_self"}
         rel={isExternal ? "noopener noreferrer" : ""}
       >
         {children}
-        {isExternal && (
-          <RiExternalLinkLine
-            className="w-3 h-3"
-            style={{
-              marginLeft: "4px",
-              display: "inline-block",
-              verticalAlign: "middle",
-            }}
-          />
-        )}
+        {renderIcon()}
       </Link>
       {showUnderline && !isActive && (
         <motion.div
@@ -141,6 +163,17 @@ const NavBar = () => {
     return () => window.removeEventListener("resize", checkIsMobile);
   }, []);
 
+  useEffect(() => {
+    if (isMobile && isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobile, isMenuOpen]);
+
   const toggleMenu = () => setIsMenuOpen((v) => !v);
 
   const menuVariants = {
@@ -175,6 +208,16 @@ const NavBar = () => {
       },
     },
   } as const;
+
+  const buttonStyle: React.CSSProperties = {
+    padding: "10px 16px",
+    borderRadius: "10px",
+    textAlign: "center",
+    display: "block",
+    width: "100%",
+    boxSizing: "border-box",
+    justifyContent: "center",
+  };
 
   return (
     <nav
@@ -361,26 +404,26 @@ const NavBar = () => {
             onClick={toggleMenu}
           >
             <motion.div
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            variants={menuVariants}
-            style={{
-              background: "#121212",
-              width: "80vw",
-              maxWidth: "250px",
-              height: "100vh",
-              padding: "56px 24px",
-              boxShadow: "0 2px 16px rgba(0,0,0,0.2)",
-              display: "flex",
-              flexDirection: "column",
-              gap: "10px",
-              position: "fixed",
-              top: 0,
-              right: 0,
-              zIndex: 999,
-            }}
-            onClick={(e) => e.stopPropagation()}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={menuVariants}
+              style={{
+                background: "#121212",
+                width: "80vw",
+                maxWidth: "250px",
+                height: "100vh",
+                padding: "56px 24px",
+                boxShadow: "0 2px 16px rgba(0,0,0,0.2)",
+                display: "flex",
+                flexDirection: "column",
+                gap: "10px",
+                position: "fixed",
+                top: 0,
+                right: 0,
+                zIndex: 999,
+              }}
+              onClick={(e) => e.stopPropagation()}
             >
               <div
                 style={{
@@ -393,46 +436,71 @@ const NavBar = () => {
               >
                 <RiCloseLine className="w-6 h-6" />
               </div>
-              <AnimatedLink to="/" style={{ ...linkStyle, fontSize: "16px" }} isActive={isActive("/")}>
-                Home
-              </AnimatedLink>
-              <AnimatedLink
-                to="/resources"
-                style={{ ...linkStyle, fontSize: "16px" }}
-                isActive={isActive("/resources")}
-              >
-                Resources
-              </AnimatedLink>
-              <AnimatedLink
-                to="/about"
-                style={{ ...linkStyle, fontSize: "16px" }}
-                isActive={isActive("/about")}
-              >
-                About
-              </AnimatedLink>
-              <AnimatedLink
-                to="/partners"
-                style={{ ...linkStyle, fontSize: "16px" }}
-                isActive={isActive("/partners")}
-              >
-                Partners
-              </AnimatedLink>
-              <AnimatedLink
-                to="https://discord.com/invite/igcse"
-                style={{ ...linkStyle, color: "#5865f2", fontSize: "16px" }}
-                isExternal
-                showUnderline={false}
-              >
-                Discord
-              </AnimatedLink>
-              <AnimatedLink
-                to="https://www.reddit.com/r/igcse"
-                style={{ ...linkStyle, color: "#FF4500", fontSize: "16px" }}
-                isExternal
-                showUnderline={false}
-              >
-                Reddit
-              </AnimatedLink>
+              <div style={{ marginTop:"1rem", flexGrow: 1, display: "flex", flexDirection: "column", gap: "5px" }}>
+                <AnimatedLink
+                  to="/"
+                  style={{ ...linkStyle, fontSize: "16px" }}
+                  isActive={isActive("/")}
+                >
+                  Home
+                </AnimatedLink>
+                <AnimatedLink
+                  to="/resources"
+                  style={{ ...linkStyle, fontSize: "16px" }}
+                  isActive={isActive("/resources")}
+                >
+                  Resources
+                </AnimatedLink>
+                <AnimatedLink
+                  to="/about"
+                  style={{ ...linkStyle, fontSize: "16px" }}
+                  isActive={isActive("/about")}
+                >
+                  About
+                </AnimatedLink>
+                <AnimatedLink
+                  to="/partners"
+                  style={{ ...linkStyle, fontSize: "16px" }}
+                  isActive={isActive("/partners")}
+                >
+                  Partners
+                </AnimatedLink>
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "1rem" }}>
+                <AnimatedLink
+                  to="https://discord.com/invite/igcse"
+                  style={{
+                    ...linkStyle,
+                    ...buttonStyle,
+                    backgroundColor: "#5865f2",
+                    color: "#ffffff",
+                    fontSize: "16px",
+                  }}
+                  isExternal
+                  showUnderline={false}
+                  className="w-full"
+                  iconType="discord"
+                >
+                  Discord
+                </AnimatedLink>
+                <AnimatedLink
+                  to="https://www.reddit.com/r/igcse"
+                  style={{
+                    ...linkStyle,
+                    ...buttonStyle,
+                    backgroundColor: "#FF4500",
+                    color: "#ffffff",
+                    fontSize: "16px",
+                  }}
+                  isExternal
+                  showUnderline={false}
+                  className="w-full"
+                  iconType="reddit"
+                >
+                  Reddit
+                </AnimatedLink>
+              </div>
             </motion.div>
           </motion.div>
         )}
