@@ -12,8 +12,8 @@ const linkStyle: React.CSSProperties = {
   color: "#d7dadc",
   textDecoration: "none",
   fontSize: "14px",
-  fontWeight: 500,
-  padding: "8px 4px",
+  fontWeight: 600,
+  padding: "12px 4px",
   fontFamily: "DMSans, sans-serif",
   position: "relative",
   display: "inline-block",
@@ -356,6 +356,7 @@ const NavBar = () => {
               zIndex: 998,
               display: "flex",
               flexDirection: "column",
+              overflow: "hidden",
             }}
             onClick={toggleMenu}
           >
@@ -392,33 +393,33 @@ const NavBar = () => {
               >
                 <RiCloseLine className="w-6 h-6" />
               </div>
-              <AnimatedLink to="/" style={linkStyle} isActive={isActive("/")}>
+              <AnimatedLink to="/" style={{ ...linkStyle, fontSize: "16px" }} isActive={isActive("/")}>
                 Home
               </AnimatedLink>
               <AnimatedLink
                 to="/resources"
-                style={linkStyle}
+                style={{ ...linkStyle, fontSize: "16px" }}
                 isActive={isActive("/resources")}
               >
                 Resources
               </AnimatedLink>
               <AnimatedLink
                 to="/about"
-                style={linkStyle}
+                style={{ ...linkStyle, fontSize: "16px" }}
                 isActive={isActive("/about")}
               >
                 About
               </AnimatedLink>
               <AnimatedLink
                 to="/partners"
-                style={linkStyle}
+                style={{ ...linkStyle, fontSize: "16px" }}
                 isActive={isActive("/partners")}
               >
                 Partners
               </AnimatedLink>
               <AnimatedLink
                 to="https://discord.com/invite/igcse"
-                style={{ ...linkStyle, color: "#5865f2" }}
+                style={{ ...linkStyle, color: "#5865f2", fontSize: "16px" }}
                 isExternal
                 showUnderline={false}
               >
@@ -426,7 +427,7 @@ const NavBar = () => {
               </AnimatedLink>
               <AnimatedLink
                 to="https://www.reddit.com/r/igcse"
-                style={{ ...linkStyle, color: "#FF4500" }}
+                style={{ ...linkStyle, color: "#FF4500", fontSize: "16px" }}
                 isExternal
                 showUnderline={false}
               >
