@@ -326,7 +326,87 @@ const NavBar = () => {
               tabIndex={0}
               aria-label="Notifications"
             />
-            {showDropdown && (
+            <AnimatePresence>
+              {isMobile && showDropdown && (
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  variants={overlayVariants}
+                  style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    width: "100vw",
+                    height: "100vh",
+                    background: "rgba(0,0,0,0.7)",
+                    zIndex: 998,
+                    display: "flex",
+                    flexDirection: "column",
+                    overflow: "hidden",
+                  }}
+                  onClick={() => setShowDropdown(false)}
+                >
+                  <motion.div
+                    initial="hidden"
+                    animate="visible"
+                    exit="hidden"
+                    variants={menuVariants}
+                    style={{
+                      background: "#121212",
+                      width: "80vw",
+                      maxWidth: "300px",
+                      height: "100vh",
+                      padding: "56px 24px",
+                      boxShadow: "0 2px 16px rgba(0,0,0,0.2)",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "10px",
+                      position: "fixed",
+                      top: 0,
+                      right: 0,
+                      zIndex: 999,
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 24,
+                        right: 24,
+                        cursor: "pointer",
+                      }}
+                      onClick={() => setShowDropdown(false)}
+                    >
+                      <RiCloseLine className="w-6 h-6" />
+                    </div>
+                    <div style={{ marginTop: "1rem" }}>
+                      <h2
+                        style={{
+                          fontFamily: "DMSans, sans-serif",
+                          fontSize: "16px",
+                          fontWeight: 800,
+                          margin: 0,
+                          marginBottom: "8px",
+                        }}
+                      >
+                        Notifications
+                      </h2>
+                      <p
+                        style={{
+                          fontFamily: "DMSans, sans-serif",
+                          fontSize: "14px",
+                          margin: 0,
+                        }}
+                      >
+                        No notifications yet.
+                      </p>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+            {!isMobile && showDropdown && (
               <div
                 style={{
                   position: "absolute",
@@ -436,7 +516,7 @@ const NavBar = () => {
               >
                 <RiCloseLine className="w-6 h-6" />
               </div>
-              <div style={{ marginTop:"1rem", flexGrow: 1, display: "flex", flexDirection: "column", gap: "5px" }}>
+              <div style={{ marginTop: "1rem", flexGrow: 1, display: "flex", flexDirection: "column", gap: "5px" }}>
                 <AnimatedLink
                   to="/"
                   style={{ ...linkStyle, fontSize: "16px" }}
