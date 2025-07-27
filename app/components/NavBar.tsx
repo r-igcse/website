@@ -1,7 +1,12 @@
 import { Link, useLocation } from "@remix-run/react";
-import { RiExternalLinkLine, RiNotification4Line } from "@remixicon/react";
-import { motion } from "framer-motion";
-import React, { useState } from "react";
+import {
+  RiExternalLinkLine,
+  RiNotification4Line,
+  RiMenuLine,
+  RiCloseLine,
+} from "@remixicon/react";
+import { motion, AnimatePresence, Variants } from "framer-motion";
+import React, { useState, useEffect } from "react";
 
 const linkStyle: React.CSSProperties = {
   color: "#d7dadc",
@@ -124,122 +129,313 @@ const NavBar = () => {
   };
 
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkIsMobile();
+    window.addEventListener("resize", checkIsMobile);
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
+
+  const toggleMenu = () => setIsMenuOpen((v) => !v);
+
+  const menuVariants = {
+    hidden: {
+      x: "100%",
+      transition: {
+        type: "tween",
+        duration: 0.3,
+      },
+    },
+    visible: {
+      x: 0,
+      transition: {
+        type: "tween",
+        duration: 0.3,
+        staggerChildren: 0.1,
+      },
+    },
+  } as const;
+
+  const overlayVariants = {
+    hidden: {
+      opacity: 0,
+      transition: {
+        duration: 0.3,
+      },
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.3,
+      },
+    },
+  } as const;
 
   return (
     <nav
       style={{
         width: "100%",
-        height: "40px",
         backgroundColor: "#121212",
-        display: "flex",
-        alignItems: "center",
-        padding: "0 12px",
-        justifyContent: "space-between",
-        fontFamily: "DMSans, sans-serif",
         boxSizing: "border-box",
         position: "relative",
         borderBottom: "1px solid #313338",
+        padding: "0",
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-        <Link
-          to="/"
-          title="Home"
+      <div
+        style={{
+          maxWidth: "1100px",
+          margin: "0 auto",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          height: "70px",
+          padding: "0 32px",
+          fontFamily: "DMSans, sans-serif",
+          gap: "0px",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "32px" }}>
+          <Link
+            to="/"
+            title="Home"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              textDecoration: "none",
+            }}
+          >
+            <img src="/favicon.png" alt="Logo" style={{ height: "38px" }} />
+            <span
+              style={{ color: "#d7dadc", fontSize: "18px", fontWeight: "bold" }}
+            >
+              <span style={{ fontFamily: "DMSans, sans-serif" }}>r/IGCSE</span>
+            </span>
+          </Link>
+
+          {!isMobile && (
+            <div style={{ display: "flex", alignItems: "center", gap: "18px" }}>
+              <AnimatedLink to="/" style={linkStyle} isActive={isActive("/")}>
+                Home
+              </AnimatedLink>
+              <AnimatedLink
+                to="/resources"
+                style={linkStyle}
+                isActive={isActive("/resources")}
+              >
+                Resources
+              </AnimatedLink>
+              <AnimatedLink
+                to="/about"
+                style={linkStyle}
+                isActive={isActive("/about")}
+              >
+                About
+              </AnimatedLink>
+              <AnimatedLink
+                to="/partners"
+                style={linkStyle}
+                isActive={isActive("/partners")}
+              >
+                Partners
+              </AnimatedLink>
+              <AnimatedLink
+                to="https://discord.com/invite/igcse"
+                style={linkStyle}
+                hoverColor="#5865f2"
+                isExternal
+                showUnderline={false}
+              >
+                Discord
+              </AnimatedLink>
+              <AnimatedLink
+                to="https://www.reddit.com/r/igcse"
+                style={linkStyle}
+                hoverColor="#FF4500"
+                isExternal
+                showUnderline={false}
+              >
+                Reddit
+              </AnimatedLink>
+            </div>
+          )}
+        </div>
+
+        <div
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "4px",
-            textDecoration: "none",
+            gap: "18px",
+            position: "relative",
           }}
         >
-          <img src="/favicon.png" alt="Logo" style={{ height: "28px" }} />
-          <span
-            style={{ color: "#d7dadc", fontSize: "15px", fontWeight: "bold" }}
-          >
-            <span style={{ fontFamily: "DMSans, sans-serif" }}>r/IGCSE</span>
-          </span>
-        </Link>
-
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <AnimatedLink to="/" style={linkStyle} isActive={isActive("/")}>
-            Home
-          </AnimatedLink>
-          <AnimatedLink
-            to="/resources"
-            style={linkStyle}
-            isActive={isActive("/resources")}
-          >
-            Resources
-          </AnimatedLink>
-          <AnimatedLink
-            to="/about"
-            style={linkStyle}
-            isActive={isActive("/about")}
-          >
-            About
-          </AnimatedLink>
-          <AnimatedLink
-            to="/partners"
-            style={linkStyle}
-            isActive={isActive("/partners")}
-          >
-            Partners
-          </AnimatedLink>
-          <AnimatedLink
-            to="https://discord.com/invite/igcse"
-            style={linkStyle}
-            hoverColor="#5865f2"
-            isExternal
-            showUnderline={false}
-          >
-            Discord
-          </AnimatedLink>
-          <AnimatedLink
-            to="https://www.reddit.com/r/igcse"
-            style={linkStyle}
-            hoverColor="#FF4500"
-            isExternal
-            showUnderline={false}
-          >
-            Reddit
-          </AnimatedLink>
-        </div>
-      </div>
-      
-      <div style={{ display: "flex", alignItems: "center", gap: "12px", position: "relative" }}>
-        <div style={{ position: "relative" }}>
-          <RiNotification4Line
-            className="w-4 h-4"
-            style={{ cursor: "pointer" }}
-            onClick={() => setShowDropdown((v) => !v)}
-            tabIndex={0}
-            aria-label="Notifications"
-          />
-          {showDropdown && (
-            <div
-              style={{
-                position: "absolute",
-                top: "calc(100% + 8px)",
-                right: 0,
-                background: "#121212",
-                color: "#d7dadc",
-                marginTop: "6px",
-                borderRadius: "8px",
-                minWidth: "300px",
-                boxShadow: "0 2px 16px rgba(0,0,0,0.2)",
-                zIndex: 100,
-                padding: "16px 12px 16px 12px",
-              }}
-              onClick={e => e.stopPropagation()}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-                <h2 style={{ fontFamily: "DMSans, sans-serif", fontSize: "14px", fontWeight: 800, margin: 0 }}>Notifications</h2>
+          <div style={{ position: "relative" }}>
+            <RiNotification4Line
+              className="w-4 h-4"
+              style={{ cursor: "pointer" }}
+              onClick={() => setShowDropdown((v) => !v)}
+              tabIndex={0}
+              aria-label="Notifications"
+            />
+            {showDropdown && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "calc(100% + 8px)",
+                  right: 0,
+                  background: "#121212",
+                  color: "#d7dadc",
+                  marginTop: "6px",
+                  borderRadius: "8px",
+                  minWidth: "300px",
+                  boxShadow: "0 2px 16px rgba(0,0,0,0.2)",
+                  zIndex: 100,
+                  padding: "16px 12px 16px 12px",
+                }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: "8px",
+                  }}
+                >
+                  <h2
+                    style={{
+                      fontFamily: "DMSans, sans-serif",
+                      fontSize: "14px",
+                      fontWeight: 800,
+                      margin: 0,
+                    }}
+                  >
+                    Notifications
+                  </h2>
+                </div>
+                <p
+                  style={{
+                    fontFamily: "DMSans, sans-serif",
+                    fontSize: "12px",
+                    margin: 0,
+                  }}
+                >
+                  No notifications yet.
+                </p>
               </div>
-              <p style={{ fontFamily: "DMSans, sans-serif", fontSize: "12px", margin: 0 }}>No notifications yet.</p>
+            )}
+          </div>
+          {isMobile && (
+            <div onClick={toggleMenu} style={{ cursor: "pointer" }}>
+              <RiMenuLine className="w-6 h-6" />
             </div>
           )}
         </div>
       </div>
+
+      <AnimatePresence>
+        {isMobile && isMenuOpen && (
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={overlayVariants}
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100vh",
+              background: "rgba(0,0,0,0.7)",
+              zIndex: 998,
+              display: "flex",
+              flexDirection: "column",
+            }}
+            onClick={toggleMenu}
+          >
+            <motion.div
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={menuVariants}
+            style={{
+              background: "#121212",
+              width: "80vw",
+              maxWidth: "250px",
+              height: "100vh",
+              padding: "56px 24px",
+              boxShadow: "0 2px 16px rgba(0,0,0,0.2)",
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+              position: "fixed",
+              top: 0,
+              right: 0,
+              zIndex: 999,
+            }}
+            onClick={(e) => e.stopPropagation()}
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  top: 24,
+                  right: 24,
+                  cursor: "pointer",
+                }}
+                onClick={toggleMenu}
+              >
+                <RiCloseLine className="w-6 h-6" />
+              </div>
+              <AnimatedLink to="/" style={linkStyle} isActive={isActive("/")}>
+                Home
+              </AnimatedLink>
+              <AnimatedLink
+                to="/resources"
+                style={linkStyle}
+                isActive={isActive("/resources")}
+              >
+                Resources
+              </AnimatedLink>
+              <AnimatedLink
+                to="/about"
+                style={linkStyle}
+                isActive={isActive("/about")}
+              >
+                About
+              </AnimatedLink>
+              <AnimatedLink
+                to="/partners"
+                style={linkStyle}
+                isActive={isActive("/partners")}
+              >
+                Partners
+              </AnimatedLink>
+              <AnimatedLink
+                to="https://discord.com/invite/igcse"
+                style={{ ...linkStyle, color: "#5865f2" }}
+                isExternal
+                showUnderline={false}
+              >
+                Discord
+              </AnimatedLink>
+              <AnimatedLink
+                to="https://www.reddit.com/r/igcse"
+                style={{ ...linkStyle, color: "#FF4500" }}
+                isExternal
+                showUnderline={false}
+              >
+                Reddit
+              </AnimatedLink>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
