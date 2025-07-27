@@ -6,7 +6,6 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import NavBar from "./components/NavBar";
 import "./tailwind.css";
 
 export const links: LinksFunction = () => [
@@ -32,7 +31,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <NavBar />
         {children}
         <ScrollRestoration />
         <Scripts />
