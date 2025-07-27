@@ -1,12 +1,33 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@font-face {
+  font-family: 'DMSans';
+  src: url('/fonts/DMSans.ttf') format('truetype');
+  font-weight: 100 1000;
+  font-style: normal;
+  font-display: swap;
+}
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  background-color: #fff;
+}
 
-  @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
+  html,
+  body {
+    
+    background-color: #000000;
     color-scheme: dark;
   }
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e1e1e;
 }
