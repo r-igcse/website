@@ -133,18 +133,18 @@ export default function Index() {
           >
             <div className="flex w-full flex-row items-end justify-center gap-12 md:justify-start">
               <div className="flex flex-col items-start">
-                <div className="mb-1 font-dmsans text-xs font-extrabold text-white">
+                <div className="mb-1 font-dmsans text-md font-bold text-white">
                   Total Users
                 </div>
-                <div className="font-dmsans text-xl font-bold text-[#FFD700]">
+                <div className="font-dmsans text-3xl font-extrabold text-[#FFD700]">
                   60,000+
                 </div>
               </div>
               <div className="flex flex-col items-start">
-                <div className="mb-1 font-dmsans text-xs font-extrabold text-white">
+                <div className="mb-1 font-dmsans text-md font-bold text-white">
                   Published Resources
                 </div>
-                <div className="font-dmsans text-xl font-extrabold text-[#FFD700]">
+                <div className="font-dmsans text-3xl font-extrabold text-[#FFD700]">
                   40+
                 </div>
               </div>
