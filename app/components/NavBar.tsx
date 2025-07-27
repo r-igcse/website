@@ -11,7 +11,7 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
 import React, { useState, useEffect } from "react";
 
 const linkStyle: React.CSSProperties = {
-  color: "#d7dadc",
+  color: "#9ca3af", // Tailwind gray-400
   textDecoration: "none",
   fontSize: "14px",
   fontWeight: 600,
@@ -94,6 +94,15 @@ const AnimatedLink = ({
     return null;
   };
 
+  // Determine hover color
+  let computedHoverColor = "#fff";
+  if (iconType === "discord") computedHoverColor = "#5865f2";
+  if (iconType === "reddit") computedHoverColor = "#FF4500";
+  if (hoverColor) computedHoverColor = hoverColor;
+
+  // If active, color is always white
+  const linkColor = isActive ? "#fff" : (isHovered ? computedHoverColor : style.color);
+
   return (
     <motion.div
       onHoverStart={handleHoverStart}
@@ -105,8 +114,8 @@ const AnimatedLink = ({
         to={to}
         style={{
           ...style,
-          color: isHovered && hoverColor ? hoverColor : style.color,
-          fontWeight: isActive ? 800 : style.fontWeight,
+          color: linkColor,
+          fontWeight: isActive || isHovered ? 800 : style.fontWeight,
           display: "flex",
           alignItems: "center",
         }}
@@ -116,28 +125,6 @@ const AnimatedLink = ({
         {children}
         {renderIcon()}
       </Link>
-      {showUnderline && !isActive && (
-        <motion.div
-          style={{
-            position: "absolute",
-            bottom: "5px",
-            left: "0",
-            right: "0",
-            height: "2px",
-            backgroundColor:
-              isHovered && hoverColor ? hoverColor : "currentColor",
-          }}
-          initial={isInitiallyUnderlined ? "visibleLeft" : "hiddenLeft"}
-          animate={
-            isHovered
-              ? "visibleLeft"
-              : lastDirection === "right"
-              ? "hiddenRight"
-              : "hiddenLeft"
-          }
-          variants={underlineVariants}
-        />
-      )}
     </motion.div>
   );
 };
@@ -181,15 +168,17 @@ const NavBar = () => {
       x: "100%",
       transition: {
         type: "tween",
-        duration: 0.3,
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
       },
     },
     visible: {
       x: 0,
       transition: {
         type: "tween",
-        duration: 0.3,
-        staggerChildren: 0.1,
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
+        staggerChildren: 0.12,
       },
     },
   } as const;
@@ -198,13 +187,15 @@ const NavBar = () => {
     hidden: {
       opacity: 0,
       transition: {
-        duration: 0.3,
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
       },
     },
     visible: {
       opacity: 1,
       transition: {
-        duration: 0.3,
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
       },
     },
   } as const;
@@ -268,18 +259,18 @@ const NavBar = () => {
                 Home
               </AnimatedLink>
               <AnimatedLink
-                to="/resources"
-                style={linkStyle}
-                isActive={isActive("/resources")}
-              >
-                Resources
-              </AnimatedLink>
-              <AnimatedLink
                 to="/about"
                 style={linkStyle}
                 isActive={isActive("/about")}
               >
                 About
+              </AnimatedLink>              
+              <AnimatedLink
+                to="/resources"
+                style={linkStyle}
+                isActive={isActive("/resources")}
+              >
+                Resources
               </AnimatedLink>
               <AnimatedLink
                 to="/partners"
@@ -525,18 +516,18 @@ const NavBar = () => {
                   Home
                 </AnimatedLink>
                 <AnimatedLink
-                  to="/resources"
-                  style={{ ...linkStyle, fontSize: "16px" }}
-                  isActive={isActive("/resources")}
-                >
-                  Resources
-                </AnimatedLink>
-                <AnimatedLink
                   to="/about"
                   style={{ ...linkStyle, fontSize: "16px" }}
                   isActive={isActive("/about")}
                 >
                   About
+                </AnimatedLink>                
+                <AnimatedLink
+                  to="/resources"
+                  style={{ ...linkStyle, fontSize: "16px" }}
+                  isActive={isActive("/resources")}
+                >
+                  Resources
                 </AnimatedLink>
                 <AnimatedLink
                   to="/partners"
