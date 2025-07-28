@@ -140,12 +140,14 @@ const NavBar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
     checkIsMobile();
+    setHasMounted(true);
     window.addEventListener("resize", checkIsMobile);
     return () => window.removeEventListener("resize", checkIsMobile);
   }, []);
@@ -209,6 +211,8 @@ const NavBar = () => {
     boxSizing: "border-box",
     justifyContent: "center",
   };
+
+  if (!hasMounted) return null;
 
   return (
     <nav

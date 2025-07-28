@@ -1,7 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { Link } from "@remix-run/react";
-import NavBar from "~/components/NavBar";
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { RiDiscordFill, RiRedditFill, RiCloseLine } from "@remixicon/react";
 import { RiBookOpenLine, RiGroupLine, RiGift2Line, RiFileAddLine, RiShieldLine, RiEditBoxLine } from "@remixicon/react"
@@ -29,7 +27,9 @@ const styles = `
         font-size: 2.7rem;
         font-weight: 1000;
         line-height: 1.2;
-        color: #FFFFFF;
+        background: -webkit-linear-gradient(45deg, #007BFF, #FFFFFF, #00AFFF);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         margin-bottom: 2rem;
         max-width: 800px;
     }
@@ -230,7 +230,7 @@ const styles = `
 
 export const meta: MetaFunction = () => {
     return [
-        { title: "About Us | IGCSE Repository" },
+        { title: "About Us" },
         { name: "description", content: "Learn about our mission to provide free, high-quality, community-driven IGCSE, O-level, and A-level resources." }
     ];
 };
@@ -257,7 +257,6 @@ function About() {
             color: "#EFEFEF"
         }}>
             <style>{styles}</style>
-            <NavBar />
             <main className="about-us-container">
                 <section className="hero-section">
                     <div className="hero-text" aria-label="About Repository Information">

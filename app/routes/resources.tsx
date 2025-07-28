@@ -1,5 +1,4 @@
 import type { MetaFunction } from "@remix-run/node";
-import NavBar from "~/components/NavBar";
 
 export const meta: MetaFunction = () => {
     return [
@@ -15,7 +14,6 @@ export default function Resources() {
             minHeight: "100vh",
             color: "#fff"
         }}>
-            <NavBar />
         </div>
     );
 }

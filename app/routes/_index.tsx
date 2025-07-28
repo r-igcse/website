@@ -1,6 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
 import { motion } from "framer-motion";
-import NavBar from "~/components/NavBar";
 
 export const meta: MetaFunction = () => {
   return [
@@ -31,11 +30,11 @@ export default function Index() {
   };
 
   return (
-    <div className="flex min-h-screen w-full flex-col overflow-hidden bg-black">
-      <div className="z-50 w-full">
-        <NavBar />
-      </div>
-
+    <>
+      <style>{`
+        html, body { height: 100vh !important; overflow: hidden !important; }
+      `}</style>
+      <div className="flex min-h-screen w-full flex-col overflow-hidden bg-black">
       <div
         className="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center gap-0 px-4 pt-6 md:flex-row md:gap-8 md:px-8 md:pt-0"
         style={{
@@ -172,6 +171,7 @@ export default function Index() {
           }}
         />
       </div>
-    </div>
+      </div>
+    </>
   );
 }
