@@ -11,7 +11,7 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
 import React, { useState, useEffect } from "react";
 
 const linkStyle: React.CSSProperties = {
-  color: "#9ca3af", // Tailwind gray-400
+  color: "#9ca3af",
   textDecoration: "none",
   fontSize: "14px",
   fontWeight: 600,
@@ -94,13 +94,11 @@ const AnimatedLink = ({
     return null;
   };
 
-  // Determine hover color
   let computedHoverColor = "#fff";
   if (iconType === "discord") computedHoverColor = "#5865f2";
   if (iconType === "reddit") computedHoverColor = "#FF4500";
   if (hoverColor) computedHoverColor = hoverColor;
 
-  // If active, color is always white
   const linkColor = isActive ? "#fff" : (isHovered ? computedHoverColor : style.color);
 
   return (

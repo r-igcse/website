@@ -205,7 +205,6 @@ export default function Partners() {
           box-shadow: 0 4px 15px rgba(88, 101, 242, 0.2);
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
           .partner-desc {
             text-align: center;
