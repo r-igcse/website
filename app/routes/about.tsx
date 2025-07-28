@@ -19,7 +19,6 @@ const styles = `
         justify-content: center;
         min-height: 50vh;
         text-align: center;
-        margin-top: 2rem;
         margin-bottom: 2rem;
     }
 
@@ -160,7 +159,7 @@ const styles = `
         border: 2px solid #333;
         color: #EFEFEF;
     }
-
+    
     .cta-button:hover {
         transform: scale(1.03);
     }
