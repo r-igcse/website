@@ -1,5 +1,6 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { igcseSubjects, aLevelSubjects } from "@/lib/subject-lists";
+import SubjectCard from "./SubjectCard";
 
 export default function ResourceList({ grade }: { grade: string }) {
   const [val, setVal] = useState("");
@@ -15,6 +16,7 @@ export default function ResourceList({ grade }: { grade: string }) {
           className="w-1/2 border-zinc-800 border-2 px-3 md:py-2 py-1 rounded-lg text-zinc-500 bg-zinc-950"
         />
       </form>
+      <SubjectCard name={"Physics"} code={9090} />
     </div>
   );
 }
