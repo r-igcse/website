@@ -3,7 +3,7 @@ export default function SubjectCard({
   code,
 }: {
   name: string;
-  code: number;
+  code: string;
 }) {
   return (
     <div className="md:w-70 md:h-23 bg-zinc-900 rounded-lg border-2 border-zinc-800 p-3 flex cursor-pointer hover:bg-zinc-800 transition-colors duration-200">

@@ -3,14 +3,16 @@ import { igcseSubjects, aLevelSubjects } from "@/lib/subject-lists";
 import SubjectCard from "./SubjectCard";
 
 export default function ResourceList({ grade }: { grade: string }) {
+  let curList = grade === "IGCSE" ? igcseSubjects : aLevelSubjects;
   const [val, setVal] = useState("");
+  const [filteredList, setFilteredList] = useState(curList);
 
-  const filterList = () => {
-    const list = grade === "IGCSE" ? igcseSubjects : aLevelSubjects;
-    const filteredList = list.filter((item) =>
-      item.name.toLowerCase().includes(val.toLowerCase()),
+  const valueChanged = (e: any) => {
+    setVal(e.target.value);
+    const newList = curList.filter((item) =>
+      item.name.toLowerCase().includes(e.target.value.toLowerCase()),
     );
-    console.log(filteredList);
+    return newList;
   };
 
   return (
@@ -31,13 +33,17 @@ export default function ResourceList({ grade }: { grade: string }) {
           type="text"
           value={val}
           onChange={(e) => {
-            setVal(e.target.value);
-            filterList();
+            setFilteredList(valueChanged(e));
           }}
           placeholder="Find what you're looking for"
           className="w-full px-3 py-1 md:text-lg text-base focus:outline-none flex-1 min-w-0"
         />
       </form>
+      <div className="flex mt-5 flex-wrap gap-2 w-3/4 mx-auto justify-between">
+        {filteredList.map((item, i) => {
+          return <SubjectCard name={item.name} code={item.code} key={i} />;
+        })}
+      </div>
     </div>
   );
 }
