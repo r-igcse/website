@@ -5,18 +5,39 @@ import SubjectCard from "./SubjectCard";
 export default function ResourceList({ grade }: { grade: string }) {
   const [val, setVal] = useState("");
 
+  const filterList = () => {
+    const list = grade === "IGCSE" ? igcseSubjects : aLevelSubjects;
+    const filteredList = list.filter((item) =>
+      item.name.toLowerCase().includes(val.toLowerCase()),
+    );
+    console.log(filteredList);
+  };
+
   return (
-    <div className="lg:mt-20 mt-10 mx-auto text-center md:text-base text-sm">
-      <form>
+    <div className="lg:mt-15 mt-10 mx-auto text-center md:text-base text-sm">
+      <form className="flex w-1/2 border-zinc-800 border-2 rounded-lg text-zinc-500 bg-zinc-950 mx-auto">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="25"
+          fill="currentColor"
+          className="text-zinc-700 m-2 mr-0"
+          viewBox="0 0 16 16"
+          aria-hidden="true"
+        >
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+        </svg>
         <input
           type="text"
           value={val}
-          onChange={(e) => setVal(e.target.value)}
+          onChange={(e) => {
+            setVal(e.target.value);
+            filterList();
+          }}
           placeholder="Find what you're looking for"
-          className="w-1/2 border-zinc-800 border-2 px-3 md:py-2 py-1 rounded-lg text-zinc-500 bg-zinc-950"
+          className="w-full px-3 py-1 md:text-lg text-base focus:outline-none flex-1 min-w-0"
         />
       </form>
-      <SubjectCard name={"Physics"} code={9090} />
     </div>
   );
 }
