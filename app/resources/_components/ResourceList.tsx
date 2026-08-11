@@ -1,22 +1,22 @@
-import { useState } from "react";
-import { igcseSubjects, aLevelSubjects } from "@/lib/subject-lists";
+import { useState, useEffect } from "react";
 import SubjectCard from "./SubjectCard";
 
-export default function ResourceList({ grade }: { grade: string }) {
-  let curList = grade === "IGCSE" ? igcseSubjects : aLevelSubjects;
+export default function ResourceList({ curList }: { curList: any }) {
   const [val, setVal] = useState("");
   const [filteredList, setFilteredList] = useState(curList);
 
+  useEffect(()=>setFilteredList(curList), [curList])
+
   const valueChanged = (e: any) => {
     setVal(e.target.value);
-    const newList = curList.filter((item) =>
+    const newList = curList.filter((item:any) =>
       item.name.toLowerCase().includes(e.target.value.toLowerCase()),
     );
     return newList;
   };
 
   return (
-    <div className="lg:mt-15 mt-10 mx-auto text-center md:text-base text-sm">
+    <div className="lg:mt-10 mt-5 mx-auto text-center md:text-base text-sm mb-10">
       <form className="flex w-1/2 border-zinc-800 border-2 rounded-lg text-zinc-500 bg-zinc-950 mx-auto">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -36,11 +36,11 @@ export default function ResourceList({ grade }: { grade: string }) {
             setFilteredList(valueChanged(e));
           }}
           placeholder="Find what you're looking for"
-          className="w-full px-3 py-1 md:text-lg text-base focus:outline-none flex-1 min-w-0"
+          className="w-full px-3 py-1 md:text-md text-sm focus:outline-none flex-1 min-w-0"
         />
       </form>
-      <div className="flex mt-5 flex-wrap gap-2 w-3/4 mx-auto justify-between">
-        {filteredList.map((item, i) => {
+      <div className="flex mt-5 flex-wrap gap-4 w-3/4 mx-auto justify-center">
+        {filteredList.map((item:any, i:number) => {
           return <SubjectCard name={item.name} code={item.code} key={i} />;
         })}
       </div>
