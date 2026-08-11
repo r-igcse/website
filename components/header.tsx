@@ -1,30 +1,85 @@
-"use client"
+"use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import styles from "./header.module.css";
 import Navbar from "./navbar";
-import { useState } from "react";
-import styles from "./header.module.css"
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname();
+  const isHomepage = pathname === "/";
+  const selectedHref = isHomepage ? "/resources" : undefined;
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   return (
     <>
-      <div className="z-50 sticky top-0 flex flex-row items-center justify-between px-6 py-4 min-w-full bg-background">
-        <div className="flex flex-row items-center gap-4 font-bold">
-          <Image src="/logo.png" alt="Logo" width={32} height={32} />
-          r/IGCSE
+      <header
+        className={`${styles.header} ${isHomepage ? styles.homeHeader : ""}`}
+      >
+        <div className={styles.inner}>
+          <Link className={styles.brand} href="/" aria-label="r/IGCSE home">
+            <Image
+              className={styles.logo}
+              src="/logo.png"
+              alt=""
+              width={50}
+              height={50}
+            />
+            <span>r/IGCSE</span>
+          </Link>
+
+          <nav className={styles.desktopNav} aria-label="Primary navigation">
+            <Navbar selectedHref={selectedHref} />
+          </nav>
+
+          <Link className={styles.login} href="/login">
+            Log in
+          </Link>
+
+          <button
+            className={styles.menuButton}
+            type="button"
+            aria-label={isOpen ? "Close navigation" : "Open navigation"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
+            onClick={() => setIsOpen((open) => !open)}
+          >
+            <span className={styles.menuLine} />
+            <span className={styles.menuLine} />
+            <span className={styles.menuLine} />
+          </button>
         </div>
-        <div className="not-md:hidden">
-          <Navbar/>
-        </div>
-        <div>
-          <button className="md:hidden transition-colors hover:text-primary-500 hover:cursor-pointer" onClick={() => setIsOpen(!isOpen)}>☰</button>
-        </div> {/* div to center the navbar */}
-      </div>
-      <div className={`${isOpen ? 'opacity-50 visible' : 'opacity-0 invisible'} bg-black inset-0 fixed transition-all duration-300 z-30`} onClick={() => setIsOpen(false)}></div>
-      <div className={`top-15 p-4 fixed w-full bg-background z-40 md:hidden ${isOpen ? styles.open : styles.dropdown}`}>
-        <Navbar/>
-      </div>
+      </header>
+
+      <button
+        className={`${styles.backdrop} ${isOpen ? styles.backdropOpen : ""}`}
+        type="button"
+        aria-label="Close navigation"
+        tabIndex={isOpen ? 0 : -1}
+        onClick={() => setIsOpen(false)}
+      />
+      <nav
+        id="mobile-navigation"
+        className={`${styles.mobileNav} ${
+          isHomepage ? styles.homeMobileNav : ""
+        } ${isOpen ? styles.mobileNavOpen : ""}`}
+        aria-label="Mobile navigation"
+      >
+        <Navbar
+          selectedHref={selectedHref}
+          onNavigate={() => setIsOpen(false)}
+        />
+      </nav>
     </>
   );
 }
