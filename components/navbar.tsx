@@ -7,18 +7,18 @@ import { navItems } from "@/data/navdata";
 import styles from "./navbar.module.css";
 
 type NavbarProps = {
+  selectedHref?: string;
   onNavigate?: () => void;
 };
 
-export default function Navbar({ onNavigate }: NavbarProps) {
+export default function Navbar({ selectedHref, onNavigate }: NavbarProps) {
   const pathname = usePathname();
-  // The supplied homepage frame uses the Resources state of the shared nav.
-  const activePath = pathname === "/" ? "/resources" : pathname;
+  const resolvedSelectedHref = selectedHref ?? pathname;
 
   return (
     <ul className={styles.list}>
       {navItems.map((item: NavItem) => {
-        const isActive = activePath === item.href;
+        const isActive = resolvedSelectedHref === item.href;
 
         return (
           <li className={styles.item} key={item.id}>

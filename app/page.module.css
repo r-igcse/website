@@ -1,6 +1,7 @@
 .home {
   position: relative;
   min-height: 100svh;
+  margin-top: -60px;
   overflow: hidden;
   background: #121010;
   color: #fff;
@@ -115,20 +116,17 @@
   line-height: 1.097551;
 }
 
-.desktopCollage {
+.collage {
   position: absolute;
   z-index: 1;
   top: 3.611111vh;
   left: 37.434794%;
   display: block;
   width: 63.821667%;
-  height: auto;
+  aspect-ratio: 1217 / 1074;
+  background: url("/home-collage-desktop.png") center / 100% 100% no-repeat;
   pointer-events: none;
   user-select: none;
-}
-
-.mobileCollage {
-  display: none;
 }
 
 @media (max-width: 700px) {
@@ -209,25 +207,23 @@
     top: min(5.343511vw, 21px);
   }
 
-  .desktopCollage {
-    display: none;
-  }
-
-  .mobileCollage {
-    position: absolute;
-    z-index: 1;
+  .collage {
     top: 57.981221%;
     left: 8.148581%;
-    display: block;
     width: 84.981064%;
-    height: auto;
-    pointer-events: none;
-    user-select: none;
+    aspect-ratio: 668 / 716;
+    background-image: url("/home-collage-mobile.png");
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .home * {
-    scroll-behavior: auto;
+@media (max-width: 1250px) {
+  .home {
+    margin-top: -50px;
+  }
+}
+
+@media (min-width: 1251px) and (max-width: 1919px) {
+  .home {
+    margin-top: -3.125vw;
   }
 }

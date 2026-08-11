@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "./page.module.css";
 
 const introduction =
@@ -30,25 +29,10 @@ export default function Home() {
           </dl>
         </section>
 
-        <Image
-          className={styles.desktopCollage}
-          src="/home-collage-desktop.png"
-          alt="A collection of r/IGCSE study resource covers"
-          width={1217}
-          height={1074}
-          sizes="(min-width: 701px) 64vw, 0px"
-          priority
-          unoptimized
-        />
-        <Image
-          className={styles.mobileCollage}
-          src="/home-collage-mobile.png"
-          alt="A collection of r/IGCSE study resource covers"
-          width={292}
-          height={323}
-          sizes="(max-width: 700px) 85vw, 0px"
-          priority
-          unoptimized
+        <div
+          className={styles.collage}
+          role="img"
+          aria-label="A collection of r/IGCSE study resource covers"
         />
       </div>
     </main>

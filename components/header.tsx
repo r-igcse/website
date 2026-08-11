@@ -2,11 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./header.module.css";
 import Navbar from "./navbar";
 
 export default function Header() {
+  const pathname = usePathname();
+  const isHomepage = pathname === "/";
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -19,7 +22,9 @@ export default function Header() {
 
   return (
     <>
-      <header className={styles.header}>
+      <header
+        className={`${styles.header} ${isHomepage ? styles.homeHeader : ""}`}
+      >
         <div className={styles.inner}>
           <Link className={styles.brand} href="/" aria-label="r/IGCSE home">
             <Image
@@ -28,13 +33,12 @@ export default function Header() {
               alt=""
               width={50}
               height={50}
-              priority
             />
             <span>r/IGCSE</span>
           </Link>
 
           <nav className={styles.desktopNav} aria-label="Primary navigation">
-            <Navbar />
+            <Navbar selectedHref={isHomepage ? "/resources" : undefined} />
           </nav>
 
           <Link className={styles.login} href="/login">
@@ -65,10 +69,15 @@ export default function Header() {
       />
       <nav
         id="mobile-navigation"
-        className={`${styles.mobileNav} ${isOpen ? styles.mobileNavOpen : ""}`}
+        className={`${styles.mobileNav} ${
+          isHomepage ? styles.homeMobileNav : ""
+        } ${isOpen ? styles.mobileNavOpen : ""}`}
         aria-label="Mobile navigation"
       >
-        <Navbar onNavigate={() => setIsOpen(false)} />
+        <Navbar
+          selectedHref={isHomepage ? "/resources" : undefined}
+          onNavigate={() => setIsOpen(false)}
+        />
       </nav>
     </>
   );
