@@ -4,7 +4,7 @@
   top: 0;
   right: 0;
   left: 0;
-  height: 60px;
+  height: var(--site-header-height);
   background: var(--background);
   color: var(--foreground);
 }
@@ -72,10 +72,6 @@
 }
 
 @media (min-width: 1251px) and (max-width: 1919px) {
-  .header {
-    height: 3.125vw;
-  }
-
   .brand {
     top: 0.260417vw;
     left: 1.510417vw;
@@ -98,10 +94,6 @@
 }
 
 @media (max-width: 1250px) {
-  .header {
-    height: 50px;
-  }
-
   .inner {
     width: 100%;
   }
@@ -174,7 +166,7 @@
   .mobileNav {
     position: fixed;
     z-index: 45;
-    top: 50px;
+    top: var(--site-header-height);
     right: 0;
     display: block;
     width: min(78vw, 310px);

@@ -10,6 +10,7 @@ import Navbar from "./navbar";
 export default function Header() {
   const pathname = usePathname();
   const isHomepage = pathname === "/";
+  const selectedHref = isHomepage ? "/resources" : undefined;
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -38,7 +39,7 @@ export default function Header() {
           </Link>
 
           <nav className={styles.desktopNav} aria-label="Primary navigation">
-            <Navbar selectedHref={isHomepage ? "/resources" : undefined} />
+            <Navbar selectedHref={selectedHref} />
           </nav>
 
           <Link className={styles.login} href="/login">
@@ -75,7 +76,7 @@ export default function Header() {
         aria-label="Mobile navigation"
       >
         <Navbar
-          selectedHref={isHomepage ? "/resources" : undefined}
+          selectedHref={selectedHref}
           onNavigate={() => setIsOpen(false)}
         />
       </nav>

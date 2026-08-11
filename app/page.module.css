@@ -1,7 +1,7 @@
 .home {
   position: relative;
   min-height: 100svh;
-  margin-top: -60px;
+  margin-top: calc(-1 * var(--site-header-height));
   overflow: hidden;
   background: #121010;
   color: #fff;
@@ -213,17 +213,5 @@
     width: 84.981064%;
     aspect-ratio: 668 / 716;
     background-image: url("/home-collage-mobile.png");
-  }
-}
-
-@media (max-width: 1250px) {
-  .home {
-    margin-top: -50px;
-  }
-}
-
-@media (min-width: 1251px) and (max-width: 1919px) {
-  .home {
-    margin-top: -3.125vw;
   }
 }
