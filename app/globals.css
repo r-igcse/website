@@ -1,19 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --primary-50:#FAD3D1;
-  --primary-100:#F9C2BF;
-  --primary-200:#F59F99;
-  --primary-300:#F17B74;
-  --primary-400:#EE584F;
-  --primary-500:#EA352A;
-  --primary-600:#C81E14;
-  --primary-700:#95160F;
-  --primary-800:#620F0A;
-  --primary-900:#2F0705;
-  --primary-950:#150302;
+  --background: #121010;
+  --foreground: #fff;
+  --primary-50: #fad3d1;
+  --primary-100: #f9c2bf;
+  --primary-200: #f59f99;
+  --primary-300: #f17b74;
+  --primary-400: #ee584f;
+  --primary-500: #ea352a;
+  --primary-600: #c81e14;
+  --primary-700: #95160f;
+  --primary-800: #620f0a;
+  --primary-900: #2f0705;
+  --primary-950: #150302;
 }
 
 @theme {
@@ -21,7 +21,7 @@
   --color-foreground: var(--foreground);
   --color-primary-50: var(--primary-50);
   --color-primary-100: var(--primary-100);
-  --color-primary-200: var(--primary-200); 
+  --color-primary-200: var(--primary-200);
   --color-primary-300: var(--primary-300);
   --color-primary-400: var(--primary-400);
   --color-primary-500: var(--primary-500);
@@ -33,22 +33,27 @@
   --font-sans: var(--font-dm-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --background: #ededed;
-    --foreground: #0a0a0a;
-  }
+html {
+  min-width: 280px;
+  background: var(--background);
+  color-scheme: dark;
 }
 
 body {
+  min-height: 100%;
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+}
+
+button,
+a {
+  font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 3px;
 }

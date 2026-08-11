@@ -4,24 +4,30 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { NavItem } from "@/data/navdata";
 import { navItems } from "@/data/navdata";
+import styles from "./navbar.module.css";
 
-export default function Navbar() {
+type NavbarProps = {
+  onNavigate?: () => void;
+};
+
+export default function Navbar({ onNavigate }: NavbarProps) {
   const pathname = usePathname();
+  // The supplied homepage frame uses the Resources state of the shared nav.
+  const activePath = pathname === "/" ? "/resources" : pathname;
 
   return (
-    <ul className="flex not-md:items-start not-md:flex-col items-center justify-center gap-8">
+    <ul className={styles.list}>
       {navItems.map((item: NavItem) => {
-        const isActive = pathname === item.href;
+        const isActive = activePath === item.href;
 
         return (
-          <li key={item.id}>
+          <li className={styles.item} key={item.id}>
             <Link
               href={item.href}
-              className={`text-current transition-colors hover:text-primary-500 ${
-                isActive
-                  ? "font-semibold underline underline-offset-4"
-                  : "font-normal"
-              }`}
+              className={`${styles.link} ${isActive ? styles.active : ""}`}
+              onClick={onNavigate}
+              target={item.external ? "_blank" : undefined}
+              rel={item.external ? "noreferrer" : undefined}
             >
               {item.name}
             </Link>
